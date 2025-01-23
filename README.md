@@ -24,6 +24,7 @@ Table-1: Snapshot of collected data.
 The list of locations is also available in the data file. All the events recorded in the data set were for groups of size 50. The groups were homogeneous in their needs such as the length of the tour and the type of service provided on board. In other words, the cost of the cruise did not vary across customers included in this data set.
 
 Dataset Link - https://github.com/ChidubemJP/Pricing-Analysis-Revenue-Management/blob/main/Copa-Data-File-1.xls
+
 ---
 
 ## Problem Statement
@@ -41,6 +42,11 @@ From the structure of the provided data, I observed that it had a similar format
 W(p) = 1 / [ 1 + EXP(a+bp)]
 
 Since I am looking for a single price per person in this analysis, I focused only on the Quote and Win columns. I fit the logit model with the given data and calculated the Probability(Win) and Probability(Loss) to calculate the Maximum Likelihood estimation of winning. Then I assumed an arbitrary starting value of decision variables a and b, and created and solved the following Solver model to maximize ln(likelihood) with constraints: **a <= 0; b >= 0.**
+![Solver Output Table](https://github.com/ChidubemJP/Pricing-Analysis-Revenue-Management/blob/main/Image%201.png)
+
+I then used the obtained values of a = -4.24, b = 0.033, and W(p) to maximize our objective:
+
+Expected Revenue of a bid at Price p = (Contract Revenue at p conditional on winning) x W(p)
 
 
 1. Determine the single optimal price per person that maximizes expected revenue.
