@@ -23,10 +23,26 @@ Table-1: Snapshot of collected data.
 
 The list of locations is also available in the data file. All the events recorded in the data set were for groups of size 50. The groups were homogeneous in their needs such as the length of the tour and the type of service provided on board. In other words, the cost of the cruise did not vary across customers included in this data set.
 
-Dataset Link - https://github.com/nikunjachoure/Price-Optimization-Revenue-Management-Case-Study/blob/main/Copa-Data-File-1.xls
+Dataset Link - https://github.com/ChidubemJP/Pricing-Analysis-Revenue-Management/blob/main/Copa-Data-File-1.xls
 ---
 
 ## Problem Statement
+
+### Assume that Copa charges a single price per person for all events.
+
+**(a) What is the price (per person) that maximizes expected revenue per event for Copa? What is the expected revenue per transaction for that price?**
+
+**Methodology**
+
+Assumption: Copa charges a single price per person for all events.
+
+From the structure of the provided data, I observed that it had a similar format to that of a bid-response model, i.e., in addition to the information about the contracts, it contained a Quote column, and a 0-1 Win column. To estimate an expected revenue maximizing price, I first calculated the Bid Response Function, or the Probability of booking the customer at quoted price p:
+
+W(p) = 1 / [ 1 + EXP(a+bp)]
+
+Since I am looking for a single price per person in this analysis, I focused only on the Quote and Win columns. I fit the logit model with the given data and calculated the Probability(Win) and Probability(Loss) to calculate the Maximum Likelihood estimation of winning. Then I assumed an arbitrary starting value of decision variables a and b, and created and solved the following Solver model to maximize ln(likelihood) with constraints: **a <= 0; b >= 0.**
+
+
 1. Determine the single optimal price per person that maximizes expected revenue.
 2. Identify optimal pricing strategies for different market segments (event types and geographic locations).
 
